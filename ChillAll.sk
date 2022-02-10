@@ -1,0 +1,99 @@
+#Made by ChillDev
+
+#ChillAll is a plugin simmilar to EssentialsX, it adds a lots of useful commands for servers with a big community.
+
+options:
+    #Toggle custom join message.
+    joinmessageon: true
+    #Set custom join message use %player% for the players username.
+    joinmessage: &x&2&2&7&9&f&b&oW&x&4&a&6&4&f&c&oe&x&7&3&4&f&f&d&ol&x&7&b&5&9&f&1&oc&x&5&9&8&c&d&4&oo&x&3&7&b&f&b&8&om&x&3&7&d&9&a&a&oe &x&3&d&e&f&9&f&ot&x&4&a&e&c&9&c&oo &x&6&b&a&b&a&d&oS&x&8&d&6&9&b&d&op&x&9&c&7&5&b&1&oa&x&a&3&a&0&9&9&ot&x&a&c&b&b&8&7&oi&x&b&6&7&8&9&8&oa&x&c&1&3&4&a&9&ol&x&c&3&4&7&a&3&oB&x&b&e&9&a&8&b&oo&x&b&9&e&d&7&2&ox %player%!
+
+    prefix: &7[&bChillAll&7]&b »
+
+    discord: https://discord.gg/a8Pe2cwwnh
+
+    website: https://spatialbox.tebex.io/
+
+on join:
+    #Checking if the player has flight enabled.
+    if {%player's uuid%::flight} is true:
+        set player's flight mode to true
+    else:
+        set player's flight mode to false
+
+    #Custom join message
+    if "{@joinmessageon}" is "true":
+        set join message to "{@joinmessage}"
+    else:
+        stop
+
+
+#Custom /help command. Add message "command: description of the name"
+command /help [<text>]:
+    trigger:
+        if arg 1 is not set:
+            message "&7[]&c--------&7[]&c---&7[&bChillAll&7]&c---&7[]&c--------&7[]"
+            message "&cHelp Page 1"
+
+
+        if arg 1 is "2":
+            message "&7[]&c--------&7[]&c---&7[&bChillAll&7]&c---&7[]&c--------&7[]"
+            message "&cHelp Page 2"
+
+        if arg 1 is "3":
+            message "&7[]&c--------&7[]&c---&7[&bChillAll&7]&c---&7[]&c--------&7[]"
+            message "&cHelp Page 3"
+        
+        if arg 1 is "4":
+            message "&7[]&c--------&7[]&c---&7[&bChillAll&7]&c---&7[]&c--------&7[]"
+            message "&cHelp Page 4"
+
+#Add more if you want!
+
+command /discord:
+    trigger:
+        send "&bDiscord &7» &bClick <link:{@discord}>&6Here<reset>"
+
+command /website:
+    trigger:
+        send "&bWebsite &7» &bClick <link:{@website}>&6Here<reset>"
+
+#Easier gamemodes
+
+command /gmc:
+    permission: chill.gmc
+    trigger:
+        set gamemode of player to Creative
+        send "{@prefix}&b Your gamemode is now set to creative!"
+
+command /gms:
+    permission: chill.gms
+    trigger:
+        set gamemode of player to Survival
+        send "{@prefix}&b Your gamemode is now set to survival!"
+
+command /gmsp:
+    permission: chill.gmsp
+    trigger:
+        set gamemode of player to Spectator
+        send "{@prefix}&b Your gamemode is now set to spectator!"
+
+command /gma:
+    permission: chill.gma
+    trigger:
+        set gamemode of player to Adventure
+        send "{@prefix}&b Your gamemode is now set to adventure!"
+
+#Staff Commands
+
+command /fly:
+    permission: chill.fly
+    trigger:
+        if {%player's uuid%::flight} is not set:
+            set {%player's uuid%::flight} to true
+            set player's flight mode to true
+            send "{@prefix} &bYour flight mode was &cenabled!"
+        else:
+            set player's flight mode to false
+            delete {%player's uuid%::flight}
+            send "{@prefix} &bYour flight mode was &cdisabled!"
